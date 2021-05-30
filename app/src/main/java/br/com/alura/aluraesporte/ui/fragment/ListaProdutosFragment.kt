@@ -10,8 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.alura.aluraesporte.R
-import br.com.alura.aluraesporte.model.Produto
-import br.com.alura.aluraesporte.ui.activity.CHAVE_PRODUTO_ID
 import br.com.alura.aluraesporte.ui.recyclerview.adapter.ProdutosAdapter
 import br.com.alura.aluraesporte.ui.viewmodel.ProdutosViewModel
 import kotlinx.android.synthetic.main.lista_produtos.*
@@ -22,7 +20,7 @@ class ListaProdutosFragment : Fragment() {
 
     private val viewModel: ProdutosViewModel by viewModel()
     private val adapter: ProdutosAdapter by inject()
-private val controlador by lazy { findNavController() }
+    private val controlador by lazy { findNavController() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         buscaProdutos()
@@ -55,10 +53,12 @@ private val controlador by lazy { findNavController() }
     private fun configuraRecyclerView() {
         val divisor = DividerItemDecoration(context, VERTICAL)
         lista_produtos_recyclerview.addItemDecoration(divisor)
-        adapter.onItemClickListener = { produtoSelecionado->
-            val dados = Bundle()
-            dados.putLong(CHAVE_PRODUTO_ID, produtoSelecionado.id)
-            controlador.navigate(R.id.detalhesProduto, dados)
+        adapter.onItemClickListener = { produtoSelecionado ->
+            val direcoes =
+                ListaProdutosFragmentDirections.acaoListaProdutosParaDetalhesProduto(
+                    produtoSelecionado.id
+                )
+            controlador.navigate(direcoes)
 
         }
         lista_produtos_recyclerview.adapter = adapter
