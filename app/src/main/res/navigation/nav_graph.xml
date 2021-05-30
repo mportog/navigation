@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/listaProdutos">
-
     <fragment
         android:id="@+id/listaProdutos"
         android:name="br.com.alura.aluraesporte.ui.fragment.ListaProdutosFragment"
@@ -12,9 +11,12 @@
         tools:layout="@layout/lista_produtos" >
         <action
             android:id="@+id/acao_listaProdutos_para_detalhesProduto"
-            app:destination="@id/detalhesProduto" />
+            app:destination="@id/detalhesProduto"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-
     <fragment
         android:id="@+id/detalhesProduto"
         android:name="br.com.alura.aluraesporte.ui.fragment.DetalhesProdutoFragment"
@@ -22,23 +24,27 @@
         tools:layout="@layout/detalhes_produto" >
         <action
             android:id="@+id/acao_detalhesProduto_para_pagamento"
-            app:destination="@id/pagamento" />
+            app:destination="@id/pagamento"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="produtoId"
             app:argType="long" />
     </fragment>
-
-    <fragment
-        android:id="@+id/pagamento"
+    <fragment android:id="@+id/pagamento"
+        android:label="Pagamento"
         android:name="br.com.alura.aluraesporte.ui.fragment.PagamentoFragment"
-        android:label="Pagamento do produto"
-        tools:layout="@layout/pagamento"
-    >
+        tools:layout="@layout/pagamento">
         <action
-            android:id="@+id/acao_pagamento_para_listaProdutos"
+            android:id="@+id/acao_pagamento_para_listaProduto"
             app:destination="@id/listaProdutos"
-            app:popUpTo="@id/listaProdutos"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/nav_graph" />
         <argument
             android:name="produtoId"
             app:argType="long" />

@@ -13,7 +13,6 @@ import br.com.alura.aluraesporte.R
 import br.com.alura.aluraesporte.extensions.formatParaMoedaBrasileira
 import br.com.alura.aluraesporte.model.Pagamento
 import br.com.alura.aluraesporte.model.Produto
-import androidx.navigation.fragment.navArgs
 import br.com.alura.aluraesporte.ui.viewmodel.PagamentoViewModel
 import kotlinx.android.synthetic.main.pagamento.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -23,12 +22,10 @@ private const val COMPRA_REALIZADA = "Compra realizada"
 
 class PagamentoFragment : Fragment() {
 
-
-    private val argumentos by navArgs<DetalhesProdutoFragmentArgs>()
+    private val argumentos by navArgs<PagamentoFragmentArgs>()
     private val produtoId by lazy {
         argumentos.produtoId
     }
-
     private val viewModel: PagamentoViewModel by viewModel()
     private lateinit var produtoEscolhido: Produto
     private val controlador by lazy { findNavController() }
@@ -52,7 +49,7 @@ class PagamentoFragment : Fragment() {
     }
 
     private fun buscaProduto() {
-        viewModel.buscaProdutoPorId(produtoId).observe(viewLifecycleOwner, Observer {
+        viewModel.buscaProdutoPorId(produtoId).observe(this, Observer {
             it?.let { produtoEncontrado ->
                 produtoEscolhido = produtoEncontrado
                 pagamento_preco.text = produtoEncontrado.preco
@@ -76,13 +73,20 @@ class PagamentoFragment : Fragment() {
             viewModel.salva(pagamento)
                 .observe(this, Observer {
                     it?.dado?.let {
-                        Toast.makeText(context, COMPRA_REALIZADA, Toast.LENGTH_SHORT).show()
-                        val direcoes =
-                            PagamentoFragmentDirections.acaoPagamentoParaListaProdutos()
-                        controlador.navigate(direcoes)
+                        Toast.makeText(
+                            context,
+                            COMPRA_REALIZADA,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        vaiParaListaProdutos()
                     }
                 })
         }
+    }
+
+    private fun vaiParaListaProdutos() {
+        val direcao = PagamentoFragmentDirections.acaoPagamentoParaListaProduto()
+        controlador.navigate(direcao)
     }
 
     private fun criaPagamento(): Pagamento? {

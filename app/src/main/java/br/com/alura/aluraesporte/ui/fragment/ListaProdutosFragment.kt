@@ -20,7 +20,10 @@ class ListaProdutosFragment : Fragment() {
 
     private val viewModel: ProdutosViewModel by viewModel()
     private val adapter: ProdutosAdapter by inject()
-    private val controlador by lazy { findNavController() }
+    private val controlador by lazy {
+        findNavController()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         buscaProdutos()
@@ -54,14 +57,15 @@ class ListaProdutosFragment : Fragment() {
         val divisor = DividerItemDecoration(context, VERTICAL)
         lista_produtos_recyclerview.addItemDecoration(divisor)
         adapter.onItemClickListener = { produtoSelecionado ->
-            val direcoes =
-                ListaProdutosFragmentDirections.acaoListaProdutosParaDetalhesProduto(
-                    produtoSelecionado.id
-                )
-            controlador.navigate(direcoes)
-
+            vaiParaDetalhesDoProduto(produtoSelecionado.id)
         }
         lista_produtos_recyclerview.adapter = adapter
+    }
+
+    private fun vaiParaDetalhesDoProduto(produtoId: Long) {
+        val direcao = ListaProdutosFragmentDirections
+            .acaoListaProdutosParaDetalhesProduto(produtoId)
+        controlador.navigate(direcao)
     }
 
 }
