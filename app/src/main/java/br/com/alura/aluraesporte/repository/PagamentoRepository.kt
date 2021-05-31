@@ -23,4 +23,6 @@ class PagamentoRepository(private val dao: PagamentoDAO) {
         }
     }
 
+    fun todos() = dao.todos()
+
 }
