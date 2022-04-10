@@ -21,13 +21,13 @@ abstract class BaseFragment : Fragment() {
         verificaEstaLogado()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu_lista_produtos, menu)
+        inflater.inflate(R.menu.menu_lista_produtos, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.menu_lista_produtos_deslogar) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_lista_produtos_deslogar) {
             vaiParaLogin()
         }
         return super.onOptionsItemSelected(item)
