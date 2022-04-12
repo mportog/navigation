@@ -21,7 +21,17 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
+    testBuildType = 'qa'
+
     buildTypes {
+        debug{
+            buildConfigField('String', 'NOME_BANCO_DE_DADOS', '"aluraesporte.db"')
+        }
+        qa{
+            initWith(buildTypes.debug)
+            buildConfigField('String', 'NOME_BANCO_DE_DADOS', '"aluraesporte-test.db"')
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -64,6 +74,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation platform('com.google.firebase:firebase-bom:29.3.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
 }

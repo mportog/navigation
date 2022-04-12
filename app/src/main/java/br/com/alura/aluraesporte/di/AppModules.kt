@@ -5,6 +5,7 @@ import androidx.preference.PreferenceManager
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import br.com.alura.aluraesporte.BuildConfig
 import br.com.alura.aluraesporte.database.AppDatabase
 import br.com.alura.aluraesporte.database.dao.PagamentoDAO
 import br.com.alura.aluraesporte.database.dao.ProdutoDAO
@@ -25,8 +26,8 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import java.math.BigDecimal
 
-private const val NOME_BANCO_DE_DADOS = "aluraesporte.db"
-private const val NOME_BANCO_DE_DADOS_TESTE = "aluraesporte-test.db"
+private const val NOME_BANCO_DE_DADOS = BuildConfig.NOME_BANCO_DE_DADOS
+private const val NOME_BANCO_DE_DADOS_TESTE =  BuildConfig.NOME_BANCO_DE_DADOS
 
 val testeDatabaseModule = module {
     single<AppDatabase> {
