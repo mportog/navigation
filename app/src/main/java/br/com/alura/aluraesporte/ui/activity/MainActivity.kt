@@ -26,11 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-         val firebaseAuth = Firebase.auth
-        val task = firebaseAuth.createUserWithEmailAndPassword("alura@alura.com", "teste123")
-task.addOnSuccessListener {
-    Toast
-}
         controlador.addOnDestinationChangedListener { _, destination, _ ->
 
             title = destination.label
@@ -53,6 +48,4 @@ task.addOnSuccessListener {
 
         main_activity_bottom_navigation.setupWithNavController(controlador)
     }
-
-
 }

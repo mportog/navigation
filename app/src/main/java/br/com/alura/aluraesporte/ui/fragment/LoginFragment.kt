@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import br.com.alura.aluraesporte.R
+import br.com.alura.aluraesporte.extensions.snackBar
+import br.com.alura.aluraesporte.model.Usuario
 import br.com.alura.aluraesporte.ui.viewmodel.ComponentesVisuais
 import br.com.alura.aluraesporte.ui.viewmodel.EstadoAppViewModel
 import br.com.alura.aluraesporte.ui.viewmodel.LoginViewModel
+import kotlinx.android.synthetic.main.cadastro_usuario.*
 import kotlinx.android.synthetic.main.login.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -33,17 +37,55 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         estadoAppViewModel.temComponentes = ComponentesVisuais()
+        configuraLogarListener()
+        configuraCadastroListener()
+    }
 
-        login_botao_logar.setOnClickListener {
-            viewModel.logar()
-            vaiParaListaProdutos()
-        }
+    private fun configuraCadastroListener() {
         login_botao_cadastrar_usuario.setOnClickListener {
             val direcao = LoginFragmentDirections.actionLoginToCadastroUsuario()
             controlador.navigate(direcao)
         }
+    }
+
+    private fun configuraLogarListener() {
+        login_botao_logar.setOnClickListener {
+            limpaCampos()
+
+            val email = login_email.editText?.text.toString()
+            val senha = login_senha.editText?.text.toString()
+
+            if (validaCampos(email))
+                viewModel.autentica(Usuario(email, senha))
+                    .observe(viewLifecycleOwner, Observer { recurso ->
+                        if (recurso.dado) {
+                            vaiParaListaProdutos()
+                        } else {
+                            view?.snackBar(recurso.erro ?: "Erro durante autenticação")
+                        }
+                    })
+        }
+    }
+
+    private fun validaCampos(email: String): Boolean {
+        var valido = true
+
+        if (email.isBlank()) {
+            login_email.error = "E-mail é necessário"
+            valido = false
+        }
+
+        if (email.isBlank()) {
+            login_senha.error = "Senha é necessária"
+            valido = false
+        }
+        return valido
+    }
+
+    private fun limpaCampos() {
+        login_email.error = null
+        login_senha.error = null
     }
 
     private fun vaiParaListaProdutos() {

@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2795" />
         <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/layout/cadastro_usuario.xml" value="0.3046683046683047" />
+        <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/layout/lista_pagamentos.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/layout/login.xml" value="0.2285012285012285" />
+        <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/layout/minha_conta.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/layout/pagamento.xml" value="0.21933962264150944" />
+        <entry key="..\:/Users/Porto/AndroidStudioProjects/navigation/app/src/main/res/menu/menu_principal_bottom_navigation.xml" value="0.45208333333333334" />
       </map>
     </option>
   </component>
